@@ -1,0 +1,9 @@
+version: "3"
+services:
+  app:
+    build: .
+    tty: true
+    volumes:
+      - ./:/go/src/github.com/toshiykst/golang-rest-api
+    ports:
+      - "8080:8080"

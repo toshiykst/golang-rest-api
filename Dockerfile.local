@@ -1,0 +1,13 @@
+FROM golang:1.15.2-alpine
+
+WORKDIR /go/src/github.com/toshiykst/golang-rest-api
+
+COPY go.mod go.sum ./
+
+RUN go mod download
+
+COPY . .
+
+EXPOSE 8080
+
+CMD ["go", "run", "app/server.go"]
