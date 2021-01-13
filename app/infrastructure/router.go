@@ -7,8 +7,8 @@ import (
 	"github.com/labstack/echo/middleware"
 )
 
-// SetupRouter setups routings.
-func SetupRouter() {
+// RunRouter runs router.
+func RunRouter(db *DB) {
 	e := echo.New()
 
 	e.Use(middleware.Logger())
