@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/toshiykst/golang-rest-api/app/infrastructure"
+	i "github.com/toshiykst/golang-rest-api/app/infrastructure"
 	"gorm.io/gorm"
 )
 
@@ -13,5 +13,6 @@ type Post struct { // TODO: Move to domain.
 }
 
 func main() {
-	infrastructure.Setup()
+	db := i.NewDB()
+	i.RunRouter(db)
 }
