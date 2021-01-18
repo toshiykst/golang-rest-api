@@ -8,8 +8,9 @@ import (
 )
 
 // RunRouter runs router.
-func RunRouter(db *DB) {
+func RunRouter() {
 	e := echo.New()
+	// d := NewDB()
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())

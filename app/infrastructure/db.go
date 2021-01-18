@@ -12,11 +12,10 @@ import (
 // DB is a structure of the DB.
 type DB struct {
 	Conn *gorm.DB
-	db.DB
 }
 
 // NewDB creates an instance of DB.
-func NewDB() *DB {
+func NewDB() db.DB {
 
 	connection := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true&loc=Local",

@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-	db := i.NewDB()
-	i.RunRouter(db)
+	i.RunRouter()
 }
