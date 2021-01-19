@@ -6,6 +6,6 @@ import "gorm.io/gorm"
 type DB interface {
 	Find(interface{}, ...interface{}) *gorm.DB
 	Create(interface{}) *gorm.DB
-	Save(interface{}) *gorm.DB
+	Update(interface{}) *gorm.DB
 	Delete(interface{}) *gorm.DB
 }

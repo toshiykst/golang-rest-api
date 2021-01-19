@@ -49,8 +49,8 @@ func (db *DB) Create(value interface{}) *gorm.DB {
 	return db.Conn.Create(value)
 }
 
-// Save updates the record.
-func (db *DB) Save(value interface{}) *gorm.DB {
+// Update updates the record.
+func (db *DB) Update(value interface{}) *gorm.DB {
 	return db.Conn.Save(value)
 }
 
