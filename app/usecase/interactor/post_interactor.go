@@ -1,4 +1,4 @@
-package interractor
+package interactor
 
 import (
 	"github.com/toshiykst/golang-rest-api/app/domain"
