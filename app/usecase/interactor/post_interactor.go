@@ -12,30 +12,30 @@ type PostInteractor struct {
 
 // Post returns a Post that specified by id.
 func (interactor *PostInteractor) Post(id int) (Post domain.Post, err error) {
-	Post, err = interactor.PostRepository.Find(id)
+	Post, err = interactor.PostRepository.FindPost(id)
 	return
 }
 
 // Posts returns the Post list.
 func (interactor *PostInteractor) Posts() (Posts domain.Posts, err error) {
-	Posts, err = interactor.PostRepository.FindAll()
+	Posts, err = interactor.PostRepository.FindPosts()
 	return
 }
 
 // Create creates the Post.
-func (interactor *PostInteractor) Create(u domain.Post) (Post domain.Post, err error) {
-	Post, err = interactor.PostRepository.Create(u)
+func (interactor *PostInteractor) Create(p domain.Post) (Post domain.Post, err error) {
+	Post, err = interactor.PostRepository.CreatePost(p)
 	return
 }
 
 // Update updates the Post.
-func (interactor *PostInteractor) Update(u domain.Post) (Post domain.Post, err error) {
-	Post, err = interactor.PostRepository.Update(u)
+func (interactor *PostInteractor) Update(p domain.Post) (Post domain.Post, err error) {
+	Post, err = interactor.PostRepository.UpdatePost(p)
 	return
 }
 
 // Delete deletes the Post.
-func (interactor *PostInteractor) Delete(Post domain.Post) (err error) {
-	err = interactor.PostRepository.Delete(Post)
+func (interactor *PostInteractor) Delete(p domain.Post) (err error) {
+	err = interactor.PostRepository.DeletePost(p)
 	return
 }
