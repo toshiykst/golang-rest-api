@@ -10,32 +10,32 @@ type PostInteractor struct {
 	PostRepository repository.PostRepository
 }
 
-// Post returns a Post that specified by id.
-func (interactor *PostInteractor) Post(id int) (Post domain.Post, err error) {
+// GetPost returns the Post.
+func (interactor *PostInteractor) GetPost(id int) (Post domain.Post, err error) {
 	Post, err = interactor.PostRepository.FindPost(id)
 	return
 }
 
-// Posts returns the Post list.
-func (interactor *PostInteractor) Posts() (Posts domain.Posts, err error) {
+// GetPosts returns the post list.
+func (interactor *PostInteractor) GetPosts() (Posts domain.Posts, err error) {
 	Posts, err = interactor.PostRepository.FindPosts()
 	return
 }
 
-// Create creates the Post.
-func (interactor *PostInteractor) Create(p domain.Post) (Post domain.Post, err error) {
+// CreatePost creates the post.
+func (interactor *PostInteractor) CreatePost(p domain.Post) (Post domain.Post, err error) {
 	Post, err = interactor.PostRepository.CreatePost(p)
 	return
 }
 
-// Update updates the Post.
-func (interactor *PostInteractor) Update(p domain.Post) (Post domain.Post, err error) {
+// UpdatePost updates the post.
+func (interactor *PostInteractor) UpdatePost(p domain.Post) (Post domain.Post, err error) {
 	Post, err = interactor.PostRepository.UpdatePost(p)
 	return
 }
 
-// Delete deletes the Post.
-func (interactor *PostInteractor) Delete(p domain.Post) (err error) {
+// DeletePost deletes the post.
+func (interactor *PostInteractor) DeletePost(p domain.Post) (err error) {
 	err = interactor.PostRepository.DeletePost(p)
 	return
 }

@@ -22,12 +22,12 @@ func NewPostController(d db.DB) *PostController {
 	}
 }
 
-// Create creates post
-func (controller *PostController) Create(c Context) (err error) {
+// CreatePost creates post
+func (controller *PostController) CreatePost(c Context) (err error) {
 	p := domain.Post{}
 	c.Bind(&p)
 
-	post, err := controller.Interactor.Create(p)
+	post, err := controller.Interactor.CreatePost(p)
 
 	if err != nil {
 		c.JSON(500, err.Error())

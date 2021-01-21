@@ -17,7 +17,7 @@ func RunRouter() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.POST("/posts", func(c echo.Context) error { return postController.Create(c) })
+	e.POST("/posts", func(c echo.Context) error { return postController.CreatePost(c) })
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
