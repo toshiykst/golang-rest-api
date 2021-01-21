@@ -1,14 +1,14 @@
 package domain
 
-import (
-	"gorm.io/gorm"
-)
+import "time"
 
 // Post is a structure of the post.
 type Post struct {
-	gorm.Model
-	Title   string
-	Content string
+	ID        int       `gorm:"primary_key" json:"id"`
+	Title     string    `json:"name"`
+	Content   string    `json:"age"`
+	CreatedAt time.Time `json:"-"`
+	UpdatedAt time.Time `json:"-"`
 }
 
 // Posts is a set of posts.
