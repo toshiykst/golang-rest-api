@@ -1,8 +1,7 @@
 package controllers
 
 import (
-	"fmt"
-
+	"github.com/toshiykst/golang-rest-api/app/domain"
 	"github.com/toshiykst/golang-rest-api/app/interfaces/db"
 	"github.com/toshiykst/golang-rest-api/app/usecase/interactor"
 )
@@ -25,6 +24,15 @@ func NewPostController(d db.DB) *PostController {
 
 // Create creates post
 func (controller *PostController) Create(c Context) (err error) {
-	fmt.Println("Not impremented Create...")
+	p := domain.Post{}
+	c.Bind(&p)
+
+	post, err := controller.Interactor.Create(p)
+
+	if err != nil {
+		c.JSON(500, err.Error())
+	}
+
+	c.JSON(201, post)
 	return
 }
