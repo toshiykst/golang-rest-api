@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/toshiykst/golang-rest-api/app/domain"
 	"github.com/toshiykst/golang-rest-api/app/interfaces/db"
 	"github.com/toshiykst/golang-rest-api/app/usecase/interactor"
@@ -48,5 +50,25 @@ func (controller *PostController) GetPosts(c Context) (err error) {
 	}
 
 	c.JSON(200, posts)
+	return
+}
+
+// GetPost returns post
+func (controller *PostController) GetPost(c Context) (err error) {
+	id, err := strconv.Atoi(c.Param("id"))
+
+	if err != nil {
+		c.JSON(500, err.Error())
+		return
+	}
+
+	post, err := controller.Interactor.GetPost(id)
+
+	if err != nil {
+		c.JSON(500, err.Error())
+		return
+	}
+
+	c.JSON(200, post)
 	return
 }
