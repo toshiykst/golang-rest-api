@@ -72,3 +72,26 @@ func (controller *PostController) GetPost(c Context) (err error) {
 	c.JSON(200, post)
 	return
 }
+
+// UpdatePost updates post
+func (controller *PostController) UpdatePost(c Context) (err error) {
+	id, err := strconv.Atoi(c.Param("id"))
+
+	if err != nil {
+		c.JSON(500, err.Error())
+		return
+	}
+
+	p := domain.Post{ID: id}
+	c.Bind(&p)
+
+	post, err := controller.Interactor.UpdatePost(p)
+
+	if err != nil {
+		c.JSON(500, err.Error())
+		return
+	}
+
+	c.JSON(201, post)
+	return
+}
