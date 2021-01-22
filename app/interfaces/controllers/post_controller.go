@@ -31,8 +31,22 @@ func (controller *PostController) CreatePost(c Context) (err error) {
 
 	if err != nil {
 		c.JSON(500, err.Error())
+		return
 	}
 
 	c.JSON(201, post)
+	return
+}
+
+// GetPosts returns posts
+func (controller *PostController) GetPosts(c Context) (err error) {
+	posts, err := controller.Interactor.GetPosts()
+
+	if err != nil {
+		c.JSON(500, err.Error())
+		return
+	}
+
+	c.JSON(200, posts)
 	return
 }
