@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"net/http"
 	"strconv"
 
 	"github.com/toshiykst/golang-rest-api/app/domain"
@@ -32,11 +33,11 @@ func (controller *PostController) CreatePost(c Context) (err error) {
 	post, err := controller.Interactor.CreatePost(p)
 
 	if err != nil {
-		c.JSON(500, err.Error())
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	c.JSON(201, post)
+	c.JSON(http.StatusCreated, post)
 	return
 }
 
@@ -45,11 +46,11 @@ func (controller *PostController) GetPosts(c Context) (err error) {
 	posts, err := controller.Interactor.GetPosts()
 
 	if err != nil {
-		c.JSON(500, err.Error())
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	c.JSON(200, posts)
+	c.JSON(http.StatusOK, posts)
 	return
 }
 
@@ -58,18 +59,18 @@ func (controller *PostController) GetPost(c Context) (err error) {
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
-		c.JSON(500, err.Error())
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	post, err := controller.Interactor.GetPost(id)
 
 	if err != nil {
-		c.JSON(500, err.Error())
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	c.JSON(200, post)
+	c.JSON(http.StatusOK, post)
 	return
 }
 
@@ -78,7 +79,7 @@ func (controller *PostController) UpdatePost(c Context) (err error) {
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
-		c.JSON(500, err.Error())
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -88,11 +89,11 @@ func (controller *PostController) UpdatePost(c Context) (err error) {
 	post, err := controller.Interactor.UpdatePost(p)
 
 	if err != nil {
-		c.JSON(500, err.Error())
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	c.JSON(201, post)
+	c.JSON(http.StatusOK, post)
 	return
 }
 
@@ -101,7 +102,7 @@ func (controller *PostController) DeletePost(c Context) (err error) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
-		c.JSON(500, err.Error())
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -110,10 +111,10 @@ func (controller *PostController) DeletePost(c Context) (err error) {
 	err = controller.Interactor.DeletePost(post)
 
 	if err != nil {
-		c.JSON(500, err.Error())
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	c.JSON(200, nil)
+	c.JSON(http.StatusOK, nil)
 	return
 }
