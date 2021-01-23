@@ -4,22 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.local
-    tty: true
-    volumes:
-      - ./:/go/src/github.com/toshiykst/golang-rest-api
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
   db:
-    build: ./mysql/
-    volumes:
-      - ./mysql/db:/docker-entrypoint-initdb.d
-      - ./mysql/data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: golang_rest_api
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-    ports:
-      - "3306:3306"

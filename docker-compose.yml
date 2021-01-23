@@ -7,6 +7,8 @@ services:
       - ./:/go/src/github.com/toshiykst/golang-rest-api
     ports:
       - "8080:8080"
+    depends_on:
+      - db
   db:
     build: ./mysql/
     volumes:
