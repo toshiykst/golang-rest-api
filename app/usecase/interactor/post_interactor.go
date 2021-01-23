@@ -17,25 +17,25 @@ func (interactor *PostInteractor) GetPost(id int) (p domain.Post, err error) {
 }
 
 // GetPosts returns the post list.
-func (interactor *PostInteractor) GetPosts() (posts domain.Posts, err error) {
-	posts, err = interactor.PostRepository.FindPosts()
+func (interactor *PostInteractor) GetPosts() (ps domain.Posts, err error) {
+	ps, err = interactor.PostRepository.FindPosts()
 	return
 }
 
 // CreatePost creates the post.
-func (interactor *PostInteractor) CreatePost(p domain.Post) (post domain.Post, err error) {
-	post, err = interactor.PostRepository.CreatePost(p)
+func (interactor *PostInteractor) CreatePost(p *domain.Post) (err error) {
+	err = interactor.PostRepository.CreatePost(p)
 	return
 }
 
 // UpdatePost updates the post.
-func (interactor *PostInteractor) UpdatePost(p domain.Post) (post domain.Post, err error) {
-	post, err = interactor.PostRepository.UpdatePost(p)
+func (interactor *PostInteractor) UpdatePost(p *domain.Post) (err error) {
+	err = interactor.PostRepository.UpdatePost(p)
 	return
 }
 
 // DeletePost deletes the post.
-func (interactor *PostInteractor) DeletePost(p domain.Post) (err error) {
+func (interactor *PostInteractor) DeletePost(p *domain.Post) (err error) {
 	err = interactor.PostRepository.DeletePost(p)
 	return
 }

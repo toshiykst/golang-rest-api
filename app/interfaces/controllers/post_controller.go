@@ -27,30 +27,28 @@ func NewPostController(d db.DB) *PostController {
 
 // CreatePost creates post
 func (controller *PostController) CreatePost(c Context) (err error) {
-	p := domain.Post{}
-	c.Bind(&p)
+	p := &domain.Post{}
+	c.Bind(p)
 
-	post, err := controller.Interactor.CreatePost(p)
-
-	if err != nil {
+	if err = controller.Interactor.CreatePost(p); err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusCreated, post)
+	c.JSON(http.StatusCreated, *p)
 	return
 }
 
 // GetPosts returns posts
 func (controller *PostController) GetPosts(c Context) (err error) {
-	posts, err := controller.Interactor.GetPosts()
+	ps, err := controller.Interactor.GetPosts()
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, posts)
+	c.JSON(http.StatusOK, ps)
 	return
 }
 
@@ -63,14 +61,14 @@ func (controller *PostController) GetPost(c Context) (err error) {
 		return
 	}
 
-	post, err := controller.Interactor.GetPost(id)
+	p, err := controller.Interactor.GetPost(id)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, post)
+	c.JSON(http.StatusOK, p)
 	return
 }
 
@@ -83,34 +81,30 @@ func (controller *PostController) UpdatePost(c Context) (err error) {
 		return
 	}
 
-	p := domain.Post{ID: id}
-	c.Bind(&p)
+	p := &domain.Post{ID: id}
+	c.Bind(p)
 
-	post, err := controller.Interactor.UpdatePost(p)
-
-	if err != nil {
+	if err = controller.Interactor.UpdatePost(p); err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, post)
+	c.JSON(http.StatusOK, *p)
 	return
 }
 
 // DeletePost deletes post
 func (controller *PostController) DeletePost(c Context) (err error) {
-	id, _ := strconv.Atoi(c.Param("id"))
+	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	post := domain.Post{ID: id}
+	p := &domain.Post{ID: id}
 
-	err = controller.Interactor.DeletePost(post)
-
-	if err != nil {
+	if err = controller.Interactor.DeletePost(p); err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}

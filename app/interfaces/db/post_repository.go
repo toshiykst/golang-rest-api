@@ -8,34 +8,32 @@ type PostRepository struct {
 }
 
 // FindPost returns the post by id.
-func (r *PostRepository) FindPost(id int) (Post domain.Post, err error) {
-	if err = r.Find(&Post, id).Error; err != nil {
+func (r *PostRepository) FindPost(id int) (p domain.Post, err error) {
+	if err = r.Find(&p, id).Error; err != nil {
 		return
 	}
 	return
 }
 
 // CreatePost creates the post.
-func (r *PostRepository) CreatePost(p domain.Post) (Post domain.Post, err error) {
-	if err = r.Create(&p).Error; err != nil {
+func (r *PostRepository) CreatePost(p *domain.Post) (err error) {
+	if err = r.Create(p).Error; err != nil {
 		return
 	}
-	Post = p
 	return
 }
 
 // UpdatePost updates the post.
-func (r *PostRepository) UpdatePost(p domain.Post) (Post domain.Post, err error) {
-	if err = r.Update(&p).Error; err != nil {
+func (r *PostRepository) UpdatePost(p *domain.Post) (err error) {
+	if err = r.Update(p).Error; err != nil {
 		return
 	}
-	Post = p
 	return
 }
 
 // DeletePost deletes the post.
-func (r *PostRepository) DeletePost(p domain.Post) (err error) {
-	if err = r.Delete(&p).Error; err != nil {
+func (r *PostRepository) DeletePost(p *domain.Post) (err error) {
+	if err = r.Delete(p).Error; err != nil {
 		return
 	}
 	return
