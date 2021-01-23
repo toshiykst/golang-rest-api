@@ -95,3 +95,25 @@ func (controller *PostController) UpdatePost(c Context) (err error) {
 	c.JSON(201, post)
 	return
 }
+
+// DeletePost deletes post
+func (controller *PostController) DeletePost(c Context) (err error) {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	if err != nil {
+		c.JSON(500, err.Error())
+		return
+	}
+
+	post := domain.Post{ID: id}
+
+	err = controller.Interactor.DeletePost(post)
+
+	if err != nil {
+		c.JSON(500, err.Error())
+		return
+	}
+
+	c.JSON(200, nil)
+	return
+}

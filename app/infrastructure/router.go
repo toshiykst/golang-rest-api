@@ -21,6 +21,7 @@ func RunRouter() {
 	e.GET("/posts/:id", func(c echo.Context) error { return postController.GetPost(c) })
 	e.POST("/posts", func(c echo.Context) error { return postController.CreatePost(c) })
 	e.PUT("/posts/:id", func(c echo.Context) error { return postController.UpdatePost(c) })
+	e.DELETE("/posts/:id", func(c echo.Context) error { return postController.DeletePost(c) })
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
