@@ -2,6 +2,7 @@ package infrastructure
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/toshiykst/golang-rest-api/app/interfaces/db"
 
@@ -19,11 +20,11 @@ func NewDB() db.DB {
 
 	connection := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true&loc=Local",
-		"user",
-		"password",
+		os.Getenv("MYSQL_USER"),
+		os.Getenv("MYSQL_PASSWORD"),
 		"db",
 		"3306",
-		"golang_rest_api",
+		os.Getenv("MYSQL_DATABASE"),
 	)
 	conn, err := gorm.Open(mysql.Open(connection), &gorm.Config{})
 

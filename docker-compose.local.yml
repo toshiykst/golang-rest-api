@@ -4,9 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.local
+    env_file:
+      - ./mysql/.env.local
   db:
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: golang_rest_api
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+    env_file:
+      - ./mysql/.env.local

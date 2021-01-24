@@ -3,6 +3,8 @@ services:
   app:
     build: .
     tty: true
+    env_file:
+      - ./mysql/.env
     volumes:
       - ./:/go/src/github.com/toshiykst/golang-rest-api
     ports:
@@ -14,10 +16,7 @@ services:
     volumes:
       - ./mysql/db:/docker-entrypoint-initdb.d
       - ./mysql/data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: golang_rest_api
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+    env_file:
+      - ./mysql/.env
     ports:
       - "3306:3306"
