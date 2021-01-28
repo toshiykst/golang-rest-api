@@ -1,7 +1,9 @@
 package test
 
 import (
+	"database/sql/driver"
 	"testing"
+	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"gorm.io/driver/mysql"
@@ -25,4 +27,13 @@ func DBMock(t *testing.T) (sqlmock.Sqlmock, *gorm.DB) {
 	gormDB.Debug()
 
 	return mock, gormDB
+}
+
+// AnyTime is a structure of AnyTime.
+type AnyTime struct{}
+
+// Match satisfies sqlmock.Argument interface
+func (a AnyTime) Match(v driver.Value) bool {
+	_, ok := v.(time.Time)
+	return ok
 }
