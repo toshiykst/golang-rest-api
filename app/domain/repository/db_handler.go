@@ -1,9 +1,9 @@
-package db
+package repository
 
 import "gorm.io/gorm"
 
-// DB is interface to connect to the data store.
-type DB interface {
+// DBHandler is interface to handle db
+type DBHandler interface {
 	Find(interface{}, ...interface{}) *gorm.DB
 	Create(interface{}) *gorm.DB
 	Update(interface{}) *gorm.DB

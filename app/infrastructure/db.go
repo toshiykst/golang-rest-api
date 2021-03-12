@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/toshiykst/golang-rest-api/app/interfaces/db"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+
+	"github.com/toshiykst/golang-rest-api/app/domain/repository"
 )
 
 // DB is a structure of the DB.
@@ -16,7 +16,7 @@ type DB struct {
 }
 
 // NewDB creates an instance of DB.
-func NewDB() db.DB {
+func NewDB() repository.DBHandler {
 
 	connection := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true&loc=Local",

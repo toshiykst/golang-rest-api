@@ -8,4 +8,4 @@ stop:
 	docker-compose down
 
 test:
-	go test ./... -v
+	go test ./...
