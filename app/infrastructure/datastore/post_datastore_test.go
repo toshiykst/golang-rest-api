@@ -1,4 +1,4 @@
-package dao
+package datastore
 
 import (
 	"regexp"
@@ -37,7 +37,7 @@ func (db *MockDB) Delete(value interface{}) *gorm.DB {
 	return db.Conn.Delete(value)
 }
 
-func TestPostDao_FindPost(t *testing.T) {
+func TestPostDataStore_FindPost(t *testing.T) {
 	mock, conn := testutil.DBMock(t)
 	sqlDB, err := conn.DB()
 	defer sqlDB.Close()
@@ -56,7 +56,7 @@ func TestPostDao_FindPost(t *testing.T) {
 		WillReturnRows(sqlmock.NewRows([]string{"id", "title", "content"}).
 			AddRow(want.ID, want.Title, want.Content))
 
-	r := &PostDao{DBHandler: &MockDB{Conn: conn}}
+	r := &PostDataStore{DBHandler: &MockDB{Conn: conn}}
 
 	got, err := r.FindPost(id)
 
@@ -65,7 +65,7 @@ func TestPostDao_FindPost(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(got, want); diff != "" {
-		t.Errorf("TestPostDao_FindPost differs: (-got +want)\n%s", diff)
+		t.Errorf("TestPostDataStore_FindPost differs: (-got +want)\n%s", diff)
 	}
 
 	if err := mock.ExpectationsWereMet(); err != nil {
@@ -73,7 +73,7 @@ func TestPostDao_FindPost(t *testing.T) {
 	}
 }
 
-func TestPostDao_CreatePost(t *testing.T) {
+func TestPostDataStore_CreatePost(t *testing.T) {
 	mock, conn := testutil.DBMock(t)
 	sqlDB, err := conn.DB()
 	defer sqlDB.Close()
@@ -88,7 +88,7 @@ func TestPostDao_CreatePost(t *testing.T) {
 		WithArgs(post.Title, post.Content, testutil.AnyTime{}, testutil.AnyTime{}).
 		WillReturnResult(sqlmock.NewResult(1, 1))
 
-	r := &PostDao{DBHandler: &MockDB{Conn: conn}}
+	r := &PostDataStore{DBHandler: &MockDB{Conn: conn}}
 
 	if err = r.CreatePost(&post); err != nil {
 		t.Fatalf("want no err, but has error %#v", err)
@@ -99,7 +99,7 @@ func TestPostDao_CreatePost(t *testing.T) {
 	}
 }
 
-func TestPostDao_UpdatePost(t *testing.T) {
+func TestPostDataStore_UpdatePost(t *testing.T) {
 	mock, conn := testutil.DBMock(t)
 	sqlDB, err := conn.DB()
 	defer sqlDB.Close()
@@ -114,7 +114,7 @@ func TestPostDao_UpdatePost(t *testing.T) {
 		WithArgs(post.Title, post.Content, nil, testutil.AnyTime{}, post.ID).
 		WillReturnResult(sqlmock.NewResult(1, 1))
 
-	r := &PostDao{DBHandler: &MockDB{Conn: conn}}
+	r := &PostDataStore{DBHandler: &MockDB{Conn: conn}}
 
 	if err = r.UpdatePost(&post); err != nil {
 		t.Fatalf("want no err, but has error %#v", err)
@@ -125,7 +125,7 @@ func TestPostDao_UpdatePost(t *testing.T) {
 	}
 }
 
-func TestPostDao_DeletePost(t *testing.T) {
+func TestPostDataStore_DeletePost(t *testing.T) {
 	mock, conn := testutil.DBMock(t)
 	sqlDB, err := conn.DB()
 	defer sqlDB.Close()
@@ -140,7 +140,7 @@ func TestPostDao_DeletePost(t *testing.T) {
 		WithArgs(post.ID).
 		WillReturnResult(sqlmock.NewResult(1, 1))
 
-	r := &PostDao{DBHandler: &MockDB{Conn: conn}}
+	r := &PostDataStore{DBHandler: &MockDB{Conn: conn}}
 
 	if err = r.DeletePost(&post); err != nil {
 		t.Fatalf("want no err, but has error %#v", err)
@@ -151,7 +151,7 @@ func TestPostDao_DeletePost(t *testing.T) {
 	}
 }
 
-func TestPostDao_FindPosts(t *testing.T) {
+func TestPostDataStore_FindPosts(t *testing.T) {
 	mock, conn := testutil.DBMock(t)
 	sqlDB, err := conn.DB()
 	defer sqlDB.Close()
@@ -173,7 +173,7 @@ func TestPostDao_FindPosts(t *testing.T) {
 
 	mock.ExpectQuery(regexp.QuoteMeta("SELECT * FROM `posts`")).WillReturnRows(rows)
 
-	r := &PostDao{DBHandler: &MockDB{Conn: conn}}
+	r := &PostDataStore{DBHandler: &MockDB{Conn: conn}}
 
 	got, err := r.FindPosts()
 
@@ -182,7 +182,7 @@ func TestPostDao_FindPosts(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(got, want); diff != "" {
-		t.Errorf("TestPostDao_FindPosts differs: (-got +want)\n%s", diff)
+		t.Errorf("TestPostDataStore_FindPosts differs: (-got +want)\n%s", diff)
 	}
 
 	if err := mock.ExpectationsWereMet(); err != nil {

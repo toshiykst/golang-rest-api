@@ -8,7 +8,8 @@ import (
 
 	"github.com/toshiykst/golang-rest-api/app/domain/model"
 	"github.com/toshiykst/golang-rest-api/app/domain/repository"
-	"github.com/toshiykst/golang-rest-api/app/infrastructure/dao"
+	"github.com/toshiykst/golang-rest-api/app/infrastructure/datastore"
+
 	"github.com/toshiykst/golang-rest-api/app/usecase"
 )
 
@@ -18,7 +19,7 @@ type postServiceHandler struct {
 
 // HandlePostService handles API Requests for postservice
 func HandlePostService(e *echo.Echo, dbHandler repository.DBHandler) {
-	pd := dao.NewPostDao(dbHandler)
+	pd := datastore.NewPostDataStore(dbHandler)
 	pu := usecase.NewPostUsecase(pd)
 	handler := postServiceHandler{pu: pu}
 
